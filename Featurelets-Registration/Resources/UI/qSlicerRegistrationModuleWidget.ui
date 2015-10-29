@@ -296,6 +296,16 @@
          <string>Featurelets</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_5">
+         <item row="3" column="0" colspan="4">
+          <widget class="QCheckBox" name="checkBox_5">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Use different size in z-direction</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0" colspan="4">
           <widget class="QCheckBox" name="checkBox_4">
            <property name="cursor">
@@ -336,7 +346,7 @@ Hint: in this case the progress bar does not work (there is only one optimizatio
          <item row="1" column="0">
           <widget class="QLabel" name="label_featureletsSize">
            <property name="text">
-            <string>Featurelets size:</string>
+            <string>Featurelet size:</string>
            </property>
           </widget>
          </item>
@@ -404,6 +414,108 @@ Hint: in this case the progress bar does not work (there is only one optimizatio
           <widget class="QLabel" name="label_searchSize">
            <property name="text">
             <string>Search region size:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_FeatureletsSizeZ">
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Featurelet size z:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_SearchSizeZ">
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Search region size z:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="label_DisplayFeatureletSizeZ">
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::WinPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="text">
+            <string>15</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="label_DisplaySearchSizeZ">
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::WinPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="text">
+            <string>30</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="3">
+          <widget class="QSlider" name="horizontalSlider_3">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="minimum">
+            <number>2</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="value">
+            <number>15</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="3">
+          <widget class="QSlider" name="horizontalSlider_4">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="minimum">
+            <number>4</number>
+           </property>
+           <property name="maximum">
+            <number>200</number>
+           </property>
+           <property name="value">
+            <number>30</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
@@ -708,8 +820,8 @@ The value of 0.001 is good for neighbour interpolation.</string>
      <y>4</y>
     </hint>
     <hint type="destinationlabel">
-     <x>341</x>
-     <y>34</y>
+     <x>327</x>
+     <y>44</y>
     </hint>
    </hints>
   </connection>
@@ -724,8 +836,8 @@ The value of 0.001 is good for neighbour interpolation.</string>
      <y>4</y>
     </hint>
     <hint type="destinationlabel">
-     <x>578</x>
-     <y>564</y>
+     <x>485</x>
+     <y>569</y>
     </hint>
    </hints>
   </connection>
@@ -740,8 +852,8 @@ The value of 0.001 is good for neighbour interpolation.</string>
      <y>4</y>
     </hint>
     <hint type="destinationlabel">
-     <x>578</x>
-     <y>587</y>
+     <x>485</x>
+     <y>592</y>
     </hint>
    </hints>
   </connection>
@@ -756,8 +868,8 @@ The value of 0.001 is good for neighbour interpolation.</string>
      <y>4</y>
     </hint>
     <hint type="destinationlabel">
-     <x>341</x>
-     <y>67</y>
+     <x>327</x>
+     <y>77</y>
     </hint>
    </hints>
   </connection>
@@ -772,8 +884,8 @@ The value of 0.001 is good for neighbour interpolation.</string>
      <y>4</y>
     </hint>
     <hint type="destinationlabel">
-     <x>341</x>
-     <y>67</y>
+     <x>108</x>
+     <y>38</y>
     </hint>
    </hints>
   </connection>
@@ -784,12 +896,12 @@ The value of 0.001 is good for neighbour interpolation.</string>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>578</x>
-     <y>122</y>
+     <x>476</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
-     <x>238</x>
-     <y>130</y>
+     <x>203</x>
+     <y>211</y>
     </hint>
    </hints>
   </connection>
@@ -800,12 +912,12 @@ The value of 0.001 is good for neighbour interpolation.</string>
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>576</x>
-     <y>149</y>
+     <x>476</x>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel">
-     <x>238</x>
-     <y>165</y>
+     <x>203</x>
+     <y>246</y>
     </hint>
    </hints>
   </connection>
@@ -816,12 +928,12 @@ The value of 0.001 is good for neighbour interpolation.</string>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>299</y>
+     <x>180</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
-     <x>161</x>
-     <y>333</y>
+     <x>108</x>
+     <y>150</y>
     </hint>
    </hints>
   </connection>
@@ -832,12 +944,12 @@ The value of 0.001 is good for neighbour interpolation.</string>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>299</y>
+     <x>485</x>
+     <y>105</y>
     </hint>
     <hint type="destinationlabel">
-     <x>161</x>
-     <y>333</y>
+     <x>108</x>
+     <y>38</y>
     </hint>
    </hints>
   </connection>
@@ -848,12 +960,12 @@ The value of 0.001 is good for neighbour interpolation.</string>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>299</y>
+     <x>485</x>
+     <y>105</y>
     </hint>
     <hint type="destinationlabel">
-     <x>161</x>
-     <y>333</y>
+     <x>108</x>
+     <y>38</y>
     </hint>
    </hints>
   </connection>
@@ -864,12 +976,140 @@ The value of 0.001 is good for neighbour interpolation.</string>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>299</y>
+     <x>180</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
-     <x>161</x>
-     <y>333</y>
+     <x>108</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_3</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>label_DisplayFeatureletSizeZ</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>236</x>
+     <y>296</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>293</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_4</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>label_DisplaySearchSizeZ</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>322</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_DisplayFeatureletSizeZ</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_DisplaySearchSizeZ</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_FeatureletsSizeZ</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>101</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_SearchSizeZ</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>101</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>horizontalSlider_3</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>horizontalSlider_4</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>330</y>
     </hint>
    </hints>
   </connection>

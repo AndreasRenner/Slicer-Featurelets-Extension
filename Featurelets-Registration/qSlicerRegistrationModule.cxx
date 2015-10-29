@@ -64,12 +64,12 @@ qSlicerRegistrationModule::~qSlicerRegistrationModule() {
 
 //-----------------------------------------------------------------------------
 QString qSlicerRegistrationModule::helpText() const {
-  return "<p>The ,,Featurelets-Registration'' module uses pixeltype short. To convert an image from another pixeltype use e.g. the module ,,Cast Scalar Volume''.</p> <p>To threshold an image use e.g. the module ,,Threshold Scalar Volume''.</p> <p>For initial alignment of fixed and moving image e.g. the module ,,Expert Automated Registration'' can be used.</p> <p>If only a subvolume of the whole image should be deformed use the module ,,Crop Volume''.</p> <p>The output deformation field can be visualized using the module ,,Transforms''.</p>";
+  return "<p>The ,,Featurelet-Registration'' module uses pixeltype short. To convert an image from another pixeltype use e.g. the module ,,Cast Scalar Volume''.</p> <p>To threshold an image use e.g. the module ,,Threshold Scalar Volume''.</p> <p>For initial alignment of fixed and moving image e.g. the module ,,Expert Automated Registration'' can be used.</p> <p>If only a subvolume of the whole image should be deformed use the module ,,Crop Volume''.</p> <p>The output deformation field can be visualized using the module ,,Transforms''.</p>";
 }
 
 //-----------------------------------------------------------------------------
 QString qSlicerRegistrationModule::acknowledgementText() const {
-  return "<p>The ,,Featurelets-Registration'' module was developed as a Master Thesis at AKH Vienna under supervision of Univ.-Prof. Dietmar Georg and Hugo Furtado.</p> <p>The idea of the Featurelet algorithm is based on Soehn, M. et al. (2008). The ,,Featurelets-Registration'' module is an implementation of the algorithm developed by Fabri, D. et al. (2014).</p>";
+  return "<p>The ,,Featurelet-Registration'' module was developed as a Master Thesis at AKH Vienna under supervision of Univ.-Prof. Dietmar Georg and Hugo Furtado.</p> <p>The idea of the Featurelet algorithm is based on Soehn, M. et al. (2008). The ,,Featurelet-Registration'' module is an implementation of the algorithm developed by Fabri, D. et al. (2014).</p>";
 }
 
 //-----------------------------------------------------------------------------

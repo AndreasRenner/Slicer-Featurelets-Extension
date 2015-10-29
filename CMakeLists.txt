@@ -4,9 +4,10 @@ project(Slicer-Featurelets)
 
 #-----------------------------------------------------------------------------
 # Extension meta-information
+set(EXTENSION_NAME Slicer-Featurelets)
 set(EXTENSION_HOMEPAGE "http://www.example.com/Slicer/Extensions/Slicer-Featurelets")
 set(EXTENSION_CATEGORY "Registration")
-set(EXTENSION_CONTRIBUTORS "Andreas Renner (AnyWare Corp.)")
+set(EXTENSION_CONTRIBUTORS "Andreas Renner (Vienna UT)")
 set(EXTENSION_DESCRIPTION "This Extension uses regularly distributed image subvolumes to achiev multimodal deformable registration.")
 set(EXTENSION_ICONURL "http://www.example.com/Slicer/Extensions/Slicer-Featurelets.png")
 set(EXTENSION_SCREENSHOTURLS "http://www.example.com/Slicer/Extensions/Slicer-Featurelets/Screenshots/1.png")

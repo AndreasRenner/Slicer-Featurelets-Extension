@@ -236,12 +236,15 @@ void qSlicerRegistrationModuleWidget::updateWidgetFromMRML() {
     }
     d->horizontalSlider->setValue(paramNode->GetFeatureletsSize());
     d->horizontalSlider_2->setValue(paramNode->GetSearchRegionSize());
+    d->horizontalSlider_3->setValue(paramNode->GetFeatureletsSizeZ());
+    d->horizontalSlider_4->setValue(paramNode->GetSearchRegionSizeZ());
     d->doubleSpinBox_Max->setValue(paramNode->GetMaxStepLength());
     d->doubleSpinBox_Min->setValue(paramNode->GetMinStepLength());
     d->spinBox_NumberIterations->setValue(paramNode->GetNumberIterations());
     d->checkBox_2->setChecked(paramNode->GetcheckBoxFiducial());
     d->checkBox_3->setChecked(paramNode->GetcheckBoxDebug());
     d->checkBox_4->setChecked(paramNode->GetcheckBoxRigid());
+    d->checkBox_5->setChecked(paramNode->GetcheckBoxZDifferent());
     d->progressBar->setValue(paramNode->Getprogress());
 
     if (paramNode->GetUseCorrelationForSimilarity()) {
@@ -294,6 +297,10 @@ void qSlicerRegistrationModuleWidget::setup() {
           this, SLOT(onFeatureletsSizeChanged(int)));
   connect(d->horizontalSlider_2, SIGNAL(valueChanged(int)),
           this, SLOT(onSearchRegionSizeChanged(int)));
+  connect(d->horizontalSlider_3, SIGNAL(valueChanged(int)),
+          this, SLOT(onFeatureletsSizeZChanged(int)));
+  connect(d->horizontalSlider_4, SIGNAL(valueChanged(int)),
+          this, SLOT(onSearchRegionSizeZChanged(int)));
   connect(d->doubleSpinBox_Max, SIGNAL(valueChanged(double)),
           this, SLOT(onMaxStepLengthChanged(double)));
   connect(d->doubleSpinBox_Min, SIGNAL(valueChanged(double)),
@@ -310,6 +317,8 @@ void qSlicerRegistrationModuleWidget::setup() {
           this, SLOT(oncheckBoxDebugChanged(bool)));
   connect(d->checkBox_4, SIGNAL(clicked(bool)),
           this, SLOT(oncheckBoxRigidChanged(bool)));
+  connect(d->checkBox_5, SIGNAL(clicked(bool)),
+          this, SLOT(oncheckBoxZDifferentChanged(bool)));
 
   // Handle scene change event if occurs
   qvtkConnect( d->logic(), vtkCommand::ModifiedEvent, this, SLOT( onLogicModified() ) );
@@ -611,6 +620,40 @@ void qSlicerRegistrationModuleWidget::onSearchRegionSizeChanged(int value) {
 }
 
 //-----------------------------------------------------------------------------
+void qSlicerRegistrationModuleWidget::onFeatureletsSizeZChanged(int value) {
+  Q_D(qSlicerRegistrationModuleWidget);
+
+  vtkMRMLRegistrationNode* paramNode = d->logic()->GetRegistrationNode();
+  if ( !paramNode || !this->mrmlScene())
+      return;
+
+  bool debugMode = paramNode->GetcheckBoxDebug();
+
+  paramNode->DisableModifiedEventOn();
+  paramNode->SetFeatureletsSizeZ(value);
+  paramNode->DisableModifiedEventOff();
+  if(debugMode)
+    std::cerr << "Featurelet Size Z - Value changed to: " << value << std::endl;
+}
+
+//-----------------------------------------------------------------------------
+void qSlicerRegistrationModuleWidget::onSearchRegionSizeZChanged(int value) {
+  Q_D(qSlicerRegistrationModuleWidget);
+
+  vtkMRMLRegistrationNode* paramNode = d->logic()->GetRegistrationNode();
+  if ( !paramNode || !this->mrmlScene())
+    return;
+
+  bool debugMode = paramNode->GetcheckBoxDebug();
+
+  paramNode->DisableModifiedEventOn();
+  paramNode->SetSearchRegionSizeZ(value);
+  paramNode->DisableModifiedEventOff();
+  if(debugMode)
+    std::cerr << "Searchregion Size Z - Value changed to: " << value << std::endl;
+}
+
+//-----------------------------------------------------------------------------
 void qSlicerRegistrationModuleWidget::onMaxStepLengthChanged(double value) {
   Q_D(qSlicerRegistrationModuleWidget);
 
@@ -742,6 +785,22 @@ void qSlicerRegistrationModuleWidget::oncheckBoxRigidChanged(bool clicked) {
   paramNode->DisableModifiedEventOff();
   if(debugMode)
     std::cerr << "Is Rigid Checkbox clicked? " << clicked << std::endl;
+}
+
+void qSlicerRegistrationModuleWidget::oncheckBoxZDifferentChanged(bool clicked) {
+  Q_D(qSlicerRegistrationModuleWidget);
+
+  vtkMRMLRegistrationNode* paramNode = d->logic()->GetRegistrationNode();
+  if ( !paramNode || !this->mrmlScene())
+    return;
+
+  bool debugMode = paramNode->GetcheckBoxDebug();
+
+  paramNode->DisableModifiedEventOn();
+  paramNode->SetcheckBoxZDifferent(clicked);
+  paramNode->DisableModifiedEventOff();
+  if(debugMode)
+    std::cerr << "Is Z Different Checkbox clicked? " << clicked << std::endl;
 }
 
 // Helping Methode taken from SlicerRTCommon

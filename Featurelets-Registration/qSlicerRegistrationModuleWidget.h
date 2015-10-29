@@ -72,6 +72,8 @@ protected slots:
 
   void onFeatureletsSizeChanged(int value);
   void onSearchRegionSizeChanged(int value);
+  void onFeatureletsSizeZChanged(int value);
+  void onSearchRegionSizeZChanged(int value);
   void onMaxStepLengthChanged(double value);
   void onMinStepLengthChanged(double value);
   void onNumberIterationsChanged(int value);
@@ -80,6 +82,7 @@ protected slots:
   void oncheckBoxFiducialChanged(bool clicked);
   void oncheckBoxDebugChanged(bool clicked);
   void oncheckBoxRigidChanged(bool clicked);
+  void oncheckBoxZDifferentChanged(bool clicked);
 
   void onRunClicked();
   void onShowVolume();

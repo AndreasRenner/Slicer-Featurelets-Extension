@@ -81,6 +81,10 @@ class VTK_SLICER_REGISTRATION_MODULE_MRML_EXPORT vtkMRMLRegistrationNode : publi
   vtkSetMacro(FeatureletsSize, int);
   vtkGetMacro(SearchRegionSize, int);
   vtkSetMacro(SearchRegionSize, int);
+  vtkGetMacro(FeatureletsSizeZ, int);
+  vtkSetMacro(FeatureletsSizeZ, int);
+  vtkGetMacro(SearchRegionSizeZ, int);
+  vtkSetMacro(SearchRegionSizeZ, int);
 
 
   vtkGetMacro(MaxStepLength, double);
@@ -92,21 +96,30 @@ class VTK_SLICER_REGISTRATION_MODULE_MRML_EXPORT vtkMRMLRegistrationNode : publi
   vtkGetMacro(progress, int);
   vtkSetMacro(progress, int);
 
+   // Bool Similarity
   vtkGetMacro(UseCorrelationForSimilarity, bool);
   vtkSetMacro(UseCorrelationForSimilarity, bool);
   vtkBooleanMacro(UseCorrelationForSimilarity, bool);
+   // Bool Correlation
   vtkGetMacro(UseLinearCorrelation, bool);
   vtkSetMacro(UseLinearCorrelation, bool);
   vtkBooleanMacro(UseLinearCorrelation, bool);
+   // Bool Fiducial
   vtkGetMacro(checkBoxFiducial, bool);
   vtkSetMacro(checkBoxFiducial, bool);
   vtkBooleanMacro(checkBoxFiducial, bool);
+   // Bool Debug
   vtkGetMacro(checkBoxDebug, bool);
   vtkSetMacro(checkBoxDebug, bool);
   vtkBooleanMacro(checkBoxDebug, bool);
+   // Bool Rigid
   vtkGetMacro(checkBoxRigid, bool);
   vtkSetMacro(checkBoxRigid, bool);
   vtkBooleanMacro(checkBoxRigid, bool);
+   // Bool Z Different
+  vtkGetMacro(checkBoxZDifferent, bool);
+  vtkSetMacro(checkBoxZDifferent, bool);
+  vtkBooleanMacro(checkBoxZDifferent, bool);
 
   // Update the stored reference to another node in the scene
   virtual void UpdateReferenceID(const char *oldID, const char *newID);
@@ -130,6 +143,8 @@ protected:
 
   int FeatureletsSize;
   int SearchRegionSize;
+  int FeatureletsSizeZ;
+  int SearchRegionSizeZ;
   double MaxStepLength;
   double MinStepLength;
   int NumberIterations;
@@ -139,6 +154,7 @@ protected:
   bool checkBoxFiducial;
   bool checkBoxDebug;
   bool checkBoxRigid;
+  bool checkBoxZDifferent;
 };
 
 #endif

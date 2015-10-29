@@ -148,6 +148,7 @@ int vtkSlicerRegistrationLogic::RunClicked(vtkMRMLRegistrationNode* pnode) {
   bool linear = pnode->GetUseLinearCorrelation();
   bool UseFiducialPoints = pnode->GetcheckBoxFiducial();
   bool rigid = pnode->GetcheckBoxRigid();
+  bool zdifferent = pnode->GetcheckBoxZDifferent();
   if(UseFiducialPoints){
     fiducialPoints = vtkMRMLMarkupsFiducialNode::SafeDownCast(scene->GetNodeByID(pnode->GetFiducialPointsID()));
     if(debugMode) {
@@ -320,19 +321,15 @@ int vtkSlicerRegistrationLogic::RunClicked(vtkMRMLRegistrationNode* pnode) {
       SearchRegionSize[j] = pnode->GetSearchRegionSize();
     }
   }
+  if(!rigid && zdifferent) {
+    FeatureletSize[2] = pnode->GetFeatureletsSizeZ();
+    SearchRegionSize[2] = pnode->GetSearchRegionSizeZ();
+  }
 
   int FeatureletInicialSize[3];
   FeatureletInicialSize[0] = FeatureletSize.GetSize()[0];
   FeatureletInicialSize[1] = FeatureletSize.GetSize()[1];
   FeatureletInicialSize[2] = FeatureletSize.GetSize()[2];
-
-  //Checking if the Size is the same as in de UI
-  if(debugMode) {
-    std::cerr << "FeatureletsSize: " << FeatureletSize[0] << " x " << FeatureletSize[1];
-    std::cerr <<" x " << FeatureletSize[2] << std::endl;
-    std::cerr << "SearchRegionSize: " << SearchRegionSize[0] << " x " << SearchRegionSize[1];
-    std::cerr << " x " << SearchRegionSize[2] << std::endl;
-  }
 
   unsigned int numFeaturelets;
   numFeaturelets = ( imageSizeFixed[0]*imageSizeFixed[1]*imageSizeFixed[2] ) /
@@ -495,6 +492,12 @@ int vtkSlicerRegistrationLogic::RunClicked(vtkMRMLRegistrationNode* pnode) {
     std::cerr << "Spacing Moving: "<< spaceMoving[0] << "/" << spaceMoving[1] << "/" << spaceMoving[2] << std::endl;
     std::cerr << "Origin Fixed:   "<< originFixed[0] << "/" << originFixed[1] << "/" << originFixed[2] << std::endl;
     std::cerr << "Origin Moving:  "<< originMoving[0] << "/" << originMoving[1] << "/" << originMoving[2] << std::endl;
+
+    //Checking if the Featurelet- and SearchRegion-Size is the same as in de UI
+    std::cerr << "FeatureletsSize: " << FeatureletSize[0] << " x " << FeatureletSize[1];
+    std::cerr <<" x " << FeatureletSize[2] << std::endl;
+    std::cerr << "SearchRegionSize: " << SearchRegionSize[0] << " x " << SearchRegionSize[1];
+    std::cerr << " x " << SearchRegionSize[2] << std::endl;
   }
 
   vtkSmartPointer<vtkImageData> deformationImage = vtkSmartPointer<vtkImageData>::New();
@@ -795,7 +798,7 @@ int vtkSlicerRegistrationLogic::SubsampleVolume(const ImageType::Pointer Image,
     desiredRegion.SetIndex(ImageIndex);
 
   // Region of the Featurelet should be in the center of the Search Region
-  ImageType::IndexType ImageIndexSearchRegion;
+  /*ImageType::IndexType ImageIndexSearchRegion;
     ImageIndexSearchRegion = ImageIndex;
   int indexDifference[3];
     indexDifference[0] = (SearchRegionSize[0] - FeatureletSize[0])/2;
@@ -807,11 +810,11 @@ int vtkSlicerRegistrationLogic::SubsampleVolume(const ImageType::Pointer Image,
   if( (ImageIndex[1] - indexDifference[1]) > 0 )
     ImageIndexSearchRegion[1] = ImageIndex[1] - indexDifference[1];
   if( (ImageIndex[2] - indexDifference[2]) > 0 )
-    ImageIndexSearchRegion[2] = ImageIndex[2] - indexDifference[2];
+    ImageIndexSearchRegion[2] = ImageIndex[2] - indexDifference[2];*/
 
   ImageType::RegionType SearchingRegion;
     SearchingRegion.SetSize(SearchRegionSize);
-    SearchingRegion.SetIndex(ImageIndexSearchRegion);
+    SearchingRegion.SetIndex(ImageIndex); //ImageIndexSearchRegion
 
   typedef itk::ExtractImageFilter<ImageType, ImageType> FilterType;
   FilterType::Pointer filterFeaturelet = FilterType::New();
@@ -857,11 +860,11 @@ Featurelet::Status vtkSlicerRegistrationLogic::CheckFeaturelet(bool fixed, bool 
   }
   //typedef itk::NormalizedCorrelationImageToImageMetric<ImageType, ImageType> MetricType;
     //MetricType::Pointer metric = MetricType::New();       //Not used
-    if (FeatureletSize[0] <= 4)
+    if (FeatureletSize[0] < 4)
       return Featurelet::SizeError;
-    if (FeatureletSize[1] <= 4)
+    if (FeatureletSize[1] < 4)
       return Featurelet::SizeError;
-    if (FeatureletSize[2] <= 4)
+    if (FeatureletSize[2] < 2)
       return Featurelet::SizeError;
 
     typedef itk::MinimumMaximumImageCalculator<ImageType> CalculatorType;
@@ -910,6 +913,7 @@ Featurelet::Status vtkSlicerRegistrationLogic::CheckFeaturelet(bool fixed, bool 
 }
 
 
+// Registration for Correlation and linear interpolation
 FeatureletRegistrationResult::Pointer vtkSlicerRegistrationLogic::RegisterVolumes1
           (ImageType* FixedImage, ImageType* MovingImage, bool debugMode, bool rigid) {
   FeatureletRegistrationResultPointer regResult;
@@ -984,6 +988,7 @@ FeatureletRegistrationResult::Pointer vtkSlicerRegistrationLogic::RegisterVolume
   return regResult;
 }
 
+// Registration for Correlation and neighbour interpolation
 FeatureletRegistrationResult::Pointer vtkSlicerRegistrationLogic::RegisterVolumes2
           (ImageType* FixedImage, ImageType* MovingImage, bool debugMode, bool rigid) {
   FeatureletRegistrationResultPointer regResult;
@@ -1056,6 +1061,7 @@ FeatureletRegistrationResult::Pointer vtkSlicerRegistrationLogic::RegisterVolume
   return regResult;
 }
 
+// Registration for Mutual Information and neighbour interpolation
 FeatureletRegistrationResult::Pointer vtkSlicerRegistrationLogic::RegisterVolumesI
           (bool debugMode, bool rigid) {
   FeatureletRegistrationResultPointer regResult;
@@ -1147,6 +1153,7 @@ FeatureletRegistrationResult::Pointer vtkSlicerRegistrationLogic::RegisterVolume
   return regResult;
 }
 
+// Registration for Mutual Information and linear interpolation
 FeatureletRegistrationResult::Pointer vtkSlicerRegistrationLogic::RegisterVolumesII
           (bool debugMode, bool rigid) {
   FeatureletRegistrationResultPointer regResult;

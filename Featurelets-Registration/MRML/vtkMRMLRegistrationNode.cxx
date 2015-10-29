@@ -47,6 +47,8 @@ vtkMRMLRegistrationNode::vtkMRMLRegistrationNode() {
 
   this->FeatureletsSize = 15;
   this->SearchRegionSize = 30;
+  this->FeatureletsSizeZ = 15;
+  this->SearchRegionSizeZ = 30;
   this->MaxStepLength = 0.5;
   this->MinStepLength = 0.001;
   this->NumberIterations = 2000;
@@ -56,6 +58,7 @@ vtkMRMLRegistrationNode::vtkMRMLRegistrationNode() {
   this->checkBoxFiducial = false;
   this->checkBoxDebug = false;
   this->checkBoxRigid = false;
+  this->checkBoxZDifferent = false;
 }
 
 //----------------------------------------------------------------------------
@@ -144,6 +147,22 @@ void vtkMRMLRegistrationNode::ReadXMLAttributes(const char** atts) {
       this->SearchRegionSize = intAttValue;
       continue;
     }
+    if (!strcmp(attName, "FeatureletsSizeZ")) {
+      std::stringstream ss;
+      ss << attValue;
+      int intAttValue;
+      ss >> intAttValue;
+      this->FeatureletsSizeZ = intAttValue;
+      continue;
+    }
+    if (!strcmp(attName, "SearchRegionSizeZ")) {
+      std::stringstream ss;
+      ss << attValue;
+      int intAttValue;
+      ss >> intAttValue;
+      this->SearchRegionSizeZ = intAttValue;
+      continue;
+    }
     if (!strcmp(attName, "MaxStepLength")) {
       std::stringstream ss;
       ss << attValue;
@@ -196,6 +215,10 @@ void vtkMRMLRegistrationNode::ReadXMLAttributes(const char** atts) {
       this->checkBoxRigid = (strcmp(attValue,"false") ? true : false);
       continue;
     }
+    if (!strcmp(attName, "checkBoxZDifferent")) {
+      this->checkBoxZDifferent = (strcmp(attValue,"false") ? true : false);
+      continue;
+    }
   }
   this->WriteXML(std::cout,1);
 }
@@ -214,6 +237,8 @@ void vtkMRMLRegistrationNode::WriteXML(ostream& of, int nIndent) {
   of << indent << " ROINodeID=\"" << (this->ROINodeID ? this->ROINodeID : "NULL") << "\"";        //Not yet implemented
   of << indent << " FeatureletsSize=\"" << this->FeatureletsSize << "\"";
   of << indent << " SearchRegionSize=\"" << this->SearchRegionSize << "\"";
+  of << indent << " FeatureletsSizeZ=\"" << this->FeatureletsSizeZ << "\"";
+  of << indent << " SearchRegionSizeZ=\"" << this->SearchRegionSizeZ << "\"";
   of << indent << " MaxStepLength=\"" << this->MaxStepLength << "\"";
   of << indent << " MinStepLength=\"" << this->MinStepLength << "\"";
   of << indent << " NumberIterations=\"" << this->NumberIterations << "\"";
@@ -223,6 +248,7 @@ void vtkMRMLRegistrationNode::WriteXML(ostream& of, int nIndent) {
   of << indent << " checkBoxFiducial=\"" << (this->checkBoxFiducial ? "false" : "true") << "\"";
   of << indent << " checkBoxDebug=\"" << (this->checkBoxDebug ? "false" : "true") << "\"";
   of << indent << " checkBoxRigid=\"" << (this->checkBoxRigid ? "false" : "true") << "\"";
+  of << indent << " checkBoxZDifferent=\"" << (this->checkBoxZDifferent ? "false" : "true") << "\"";
 }
 
 //----------------------------------------------------------------------------
@@ -243,6 +269,8 @@ void vtkMRMLRegistrationNode::Copy(vtkMRMLNode *anode) {
 
   this->FeatureletsSize = node->FeatureletsSize;
   this->SearchRegionSize = node->SearchRegionSize;
+  this->FeatureletsSizeZ = node->FeatureletsSizeZ;
+  this->SearchRegionSizeZ = node->SearchRegionSizeZ;
   this->MaxStepLength = node->MaxStepLength;
   this->MinStepLength = node->MinStepLength;
   this->NumberIterations = node->NumberIterations;
@@ -252,6 +280,7 @@ void vtkMRMLRegistrationNode::Copy(vtkMRMLNode *anode) {
   this->checkBoxFiducial = node->checkBoxFiducial;
   this->checkBoxDebug = node->checkBoxDebug;
   this->checkBoxRigid = node->checkBoxRigid;
+  this->checkBoxZDifferent = node->checkBoxZDifferent;
 
   this->DisableModifiedEventOff();
   this->InvokePendingModifiedEvent();
@@ -270,6 +299,8 @@ void vtkMRMLRegistrationNode::PrintSelf(ostream& os, vtkIndent indent) {
 
   os << indent << "FeatureletsSize:   " << this->FeatureletsSize << "\n";
   os << indent << "SearchRegionSize:   " << this->SearchRegionSize << "\n";
+  os << indent << "FeatureletsSizeZ:   " << this->FeatureletsSizeZ << "\n";
+  os << indent << "SearchRegionSizeZ:   " << this->SearchRegionSizeZ << "\n";
   os << indent << "MaxStepLength:   " << this->MaxStepLength << "\n";
   os << indent << "MinStepLength:   " << this->MinStepLength << "\n";
   os << indent << "NumberIterations:   " << this->NumberIterations << "\n";
@@ -279,6 +310,7 @@ void vtkMRMLRegistrationNode::PrintSelf(ostream& os, vtkIndent indent) {
   os << indent << "checkBoxFiducial:   " << (this->checkBoxFiducial ? "false" : "true") << "\n";
   os << indent << "checkBoxDebug:   " << (this->checkBoxDebug ? "false" : "true") << "\n";
   os << indent << "checkBoxRigid:   " << (this->checkBoxRigid ? "false" : "true") << "\n";
+  os << indent << "checkBoxZDifferent:   " << (this->checkBoxZDifferent ? "false" : "true") << "\n";
 }
 
 //----------------------------------------------------------------------------
